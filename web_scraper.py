@@ -1,3 +1,10 @@
+'''
+This will scrape data from Tinder for all data, whenever they are found,
+it will be exported into a CSV files.
+'''
+
+#------------------------------------------------------------------
+
 from selenium import webdriver
 import sys
 from login import user, passw
@@ -6,9 +13,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import csv
 
+#------------------------------------------------------------------
+
 class TinderBot():
     def __init__(self):
         self.driver = webdriver.Chrome()
+
+    # ------------------------------------------------------------------
+    # Log's in to Tinder.com
+    # ------------------------------------------------------------------
+
 
     def login(self):
         self.driver.get('https://tinder.com')
@@ -51,6 +65,7 @@ class TinderBot():
         sleep(3)
 
         '''
+        #------------------------------------------------------------------
         #Optional phone login
 
         phone_in = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[1]/div[2]/div/input')
@@ -61,7 +76,9 @@ class TinderBot():
 
         #Need to input authentication code manually
         sleep(15)
+        #------------------------------------------------------------------
         '''
+
 
         loc_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
         loc_popup.click()
@@ -69,7 +86,13 @@ class TinderBot():
         notif_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
         notif_popup.click()
 
-        sleep(10)
+        sleep(8)
+
+        '''
+        #------------------------------------------------------------------
+        #Optional passport popup dismiss
 
         passport_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[1]/button')
         passport_popup.click()
+        #------------------------------------------------------------------
+        '''

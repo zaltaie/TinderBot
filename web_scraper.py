@@ -96,3 +96,12 @@ class TinderBot():
         passport_popup.click()
         #------------------------------------------------------------------
         '''
+        
+    def open_profile(self):
+        ActionChains(self.driver).send_keys(Keys.ARROW_UP).perform()
+
+    def like_key(self):
+        ActionChains(self.driver).send_keys(Keys.ARROW_RIGHT).perform()
+
+    def dislike_key(self):
+        Acti

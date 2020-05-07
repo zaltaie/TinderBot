@@ -24,7 +24,6 @@ class TinderBot():
     # Log's in to Tinder.com
     # ------------------------------------------------------------------
 
-
     def login(self):
         self.driver.get('https://tinder.com')
         sleep(3)

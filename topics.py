@@ -5,3 +5,7 @@ topics['covid19'] = {'corona','coronavirus','cv','quarantine','quarantini','covi
 topics['cannabis'] = {'weed','420','maryjane','smoke','blaze','marijuana','blunt','bong','joint','high','drug','drugs','cannabis'}
 topics['alcohol'] = {'drink','drinks','alcohol','shot','shots','happy hour','beer','wine','bar','vodka','whiskey','tequila','rum','gin','brewery','vineyard','distillery','🥃','🍷','🍾','🍸','🍹','🍺','🍻','🥂'}
 topics['tv'] = {'netflix','tv','show','hulu','movies','movie','watch','series','youtube'}
+
+second_pass = {}
+second_pass['instagram'] = ['ig-','ig:','insta','instagram']
+second_pass['snapchat'] = ['sc-','sc:','snap','snapchat']

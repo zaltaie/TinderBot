@@ -8,3 +8,4 @@ The purpose of this project is two-fold:
 
 ## Chapter 1 - Set Up
 I decided to use this opportunity to gather Tinder profile to build a database to apply my newfound data science and analytical skills towards in an attempt to combat my own lonliness and boredom during the shelter in place and quarantine directives being rolled out all over.
+

@@ -18,4 +18,4 @@ Right off the bat, I'd like to calculate some fun stats such as:
 5. Most emojis used
 6. How often is instagram/ snapchat is promoted in the bio
 
-![Image of age distribution](https://imgur.com/a/xmUVwnp)
+![Image of age distribution](https://imgur.com/Q8WbXGG)

@@ -29,6 +29,9 @@ I've also created a quick program that rates people's attractiveness using hayst
 All data per web-scraping session is constantly saved and appended to a local csv file that is later aggregated into a master file.
 
 ## Chapter 2 - Initial Findings
+
+### Quick stats
+
 * 2497 TOTAL ENTRIES GATHERED
 * 2493 ENTRIES HAVE AGE DATA (99.8%)
 * 1123 ENTRIES HAVE COLLEGE DATA (45.0%)
@@ -67,6 +70,8 @@ Topics Include:
 * Netflix / TV / Movies Mentions
 * Hobby / Activity Mentions
 
+### Quick stats
+
 Out of 2497 entries:
 * 397 ENTRIES MENTIONED INSTAGRAM (15.8%)
 * 98 ENTRIES MENTIONED SNAPCHAT (3.9%)
@@ -81,6 +86,8 @@ Out of 2497 entries:
 Right, I’ve got my data and my friends, but now what? Time to clean the data.
 
 Now that the data was in a nice format, I managed to produce a few high level summary statistics. The dataset contained:
+
+### Quick stats
 
 * 1 girl
 * 2 guys

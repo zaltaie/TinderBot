@@ -3,26 +3,17 @@ This will scrape data from Tinder for all data, whenever they are found,
 it will be exported into a CSV files.
 '''
 
-#------------------------------------------------------------------
-
 from selenium import webdriver
-import sys
 from login import user, passw
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import csv
-from random import randint
 
-#------------------------------------------------------------------
 
 class TinderBot():
     def __init__(self):
         self.driver = webdriver.Chrome()
-
-    # ------------------------------------------------------------------
-    # Log's in to Tinder.com
-    # ------------------------------------------------------------------
 
     def login(self):
         self.driver.get('https://tinder.com')
@@ -63,9 +54,7 @@ class TinderBot():
         self.driver.switch_to.window(base_window)
 
         sleep(5)
-
         '''
-        #------------------------------------------------------------------
         #Optional phone login
 
         phone_in = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[1]/div[2]/div/input')
@@ -76,30 +65,23 @@ class TinderBot():
 
         #Need to input authentication code manually
         sleep(15)
-        #------------------------------------------------------------------
         '''
 
-
-        loc_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
+        loc_popup = self.driver.find_element_by_xpath(
+            '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
         loc_popup.click()
 
-        notif_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
+        notif_popup = self.driver.find_element_by_xpath(
+            '//*[@id="modal-manager"]/div/div/div/div/div[3]/button[1]')
         notif_popup.click()
 
         sleep(8)
-
         '''
-        #------------------------------------------------------------------
         #Optional passport popup dismiss
 
         passport_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[1]/button')
         passport_popup.click()
-        #------------------------------------------------------------------
         '''
-
-    # ------------------------------------------------------------------
-    # Scrapes each profile
-    # ------------------------------------------------------------------
 
     def profile_scrape(self):
         self.open_profile()
@@ -109,7 +91,8 @@ class TinderBot():
         # Profile Name
         try:
             css_path = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div.D\(f\).Jc\(sb\).Us\(n\).Px\(16px\).Py\(10px\) > div > div.My\(2px\).C\(\$c-base\).Us\(t\).D\(f\).Ai\(b\).Maw\(90\%\) > div > h1'
-            profile_name_elem = self.driver.find_element_by_css_selector(css_path)
+            profile_name_elem = self.driver.find_element_by_css_selector(
+                css_path)
             profile_name = profile_name_elem.text
         except:
             profile_name = None
@@ -119,13 +102,13 @@ class TinderBot():
         # Profile Age
         try:
             css_path = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div.D\(f\).Jc\(sb\).Us\(n\).Px\(16px\).Py\(10px\) > div > div.My\(2px\).C\(\$c-base\).Us\(t\).D\(f\).Ai\(b\).Maw\(90\%\) > span'
-            profile_age_elem = self.driver.find_element_by_css_selector(css_path)
+            profile_age_elem = self.driver.find_element_by_css_selector(
+                css_path)
             profile_age = profile_age_elem.text
         except:
             profile_age = None
 
         profile_data['age'] = profile_age
-
 
         # Icon Info
         job_icon = 'M7.15 3.434h5.7V1.452a.728.728 0 0 0-.724-.732H7.874a.737.737 0 0 0-.725.732v1.982z'
@@ -143,9 +126,10 @@ class TinderBot():
             css_path = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div.D\(f\).Jc\(sb\).Us\(n\).Px\(16px\).Py\(10px\) > div > div.Fz\(\$ms\)'
             info_table = self.driver.find_element_by_css_selector(css_path)
             info_rows = info_table.find_elements_by_class_name('Row')
-            for i,row in enumerate(info_rows):
+            for i, row in enumerate(info_rows):
                 path_elem = row.find_element_by_tag_name('path')
-                iterable_path = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div.D\(f\).Jc\(sb\).Us\(n\).Px\(16px\).Py\(10px\) > div > div.Fz\(\$ms\) > div:nth-child({}) > div.Us\(t\).Va\(m\).D\(ib\).My\(2px\).NetWidth\(100\%\,20px\).C\(\$c-secondary\)'.format(i+1)
+                iterable_path = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div.D\(f\).Jc\(sb\).Us\(n\).Px\(16px\).Py\(10px\) > div > div.Fz\(\$ms\) > div:nth-child({}) > div.Us\(t\).Va\(m\).D\(ib\).My\(2px\).NetWidth\(100\%\,20px\).C\(\$c-secondary\)'.format(
+                    i + 1)
                 content = row.find_element_by_css_selector(iterable_path).text
                 if path_elem.get_attribute('d') == college_icon:
                     profile_data['college'] = content
@@ -167,7 +151,8 @@ class TinderBot():
         # Profile Details
         try:
             details_path = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div.P\(16px\).Ta\(start\).Us\(t\).C\(\$c-secondary\).BreakWord.Whs\(pl\).Fz\(\$ms\)'
-            profile_details_elem = self.driver.find_element_by_css_selector(details_path)
+            profile_details_elem = self.driver.find_element_by_css_selector(
+                details_path)
             contents = profile_details_elem.find_elements_by_tag_name('span')
             details = ""
             for each in contents:
@@ -182,38 +167,40 @@ class TinderBot():
         anthem_song_selector = '#content > div > div.App__body.H\(100\%\).Pos\(r\).Z\(0\) > div > main > div.H\(100\%\) > div > div > div.profileCard.Pos\(r\).D\(f\).Ai\(c\).Fld\(c\).Expand--s.Mt\(a\) > div.Pos\(r\)--ml.Z\(1\).Bgc\(\#fff\).Ov\(h\).Expand.profileContent.Bdrs\(8px\)--ml.Bxsh\(\$bxsh-card\)--ml > div > div.Bgc\(\#fff\).Fxg\(1\).Z\(1\).Pb\(100px\) > div:nth-child(5) > div > div > div > div.Mb\(4px\).Ell.Fz\(\$ms\)'
 
         try:
-            anthem_artist_elem = self.driver.find_element_by_css_selector(anthem_artist_selector)
+            anthem_artist_elem = self.driver.find_element_by_css_selector(
+                anthem_artist_selector)
             anthem_artist = anthem_artist_elem.text
-            anthem_song_elem = self.driver.find_element_by_css_selector(anthem_song_selector)
+            anthem_song_elem = self.driver.find_element_by_css_selector(
+                anthem_song_selector)
             anthem_song = anthem_song_elem.text
-            profile_data['anthem'] = (anthem_song,anthem_artist)
+            profile_data['anthem'] = (anthem_song, anthem_artist)
         except:
             profile_data['anthem'] = None
 
         # Profile Picture URLs
         try:
             images = set()
-            slideshow = self.driver.find_element_by_class_name('react-swipeable-view-container')
-            num_images = len(slideshow.find_elements_by_tag_name('div'))-3
+            slideshow = self.driver.find_element_by_class_name(
+                'react-swipeable-view-container')
+            num_images = len(slideshow.find_elements_by_tag_name('div')) - 3
             for _ in range(num_images):
                 self.next_image()
                 sleep(0.25)
-                all_image = self.driver.find_elements_by_class_name('profileCard__slider__img')
+                all_image = self.driver.find_elements_by_class_name(
+                    'profileCard__slider__img')
                 for each in all_image:
                     url = each.get_attribute('style').split('"')[1]
                     images.add(url)
         except:
             images = None
 
-        # ------------------------------------------------------------------
-        # Exports data into a CSV file
-        # ------------------------------------------------------------------
-
         profile_data['profile_pic_urls'] = list(images)
 
-        csv_columns = ['name','age','college','job','city','gender','distance','details','anthem','profile_pic_urls']
+        csv_columns = [
+            'name', 'age', 'college', 'job', 'city', 'gender', 'distance',
+            'details', 'anthem', 'profile_pic_urls'
+        ]
         csv_filename = 'tinder_profile_data.csv'
-
         '''
         #First Time Initialize
         with open(csv_filename,'w',encoding="utf-8") as file:
@@ -223,12 +210,11 @@ class TinderBot():
         '''
 
         # Update tinder_profile_data.csv
-        with open(csv_filename,'a',encoding="utf-8") as file:
+        with open(csv_filename, 'a', encoding="utf-8") as file:
             writer = csv.DictWriter(file, fieldnames=csv_columns)
             writer.writerow(profile_data)
 
         self.dislike_key()
-
         '''
         # Uses random chance of swiping
         if randint(1,1000) > 900: #Inclusive
@@ -236,8 +222,6 @@ class TinderBot():
         else:
             self.dislike_key()
         '''
-
-    #------------------------------------------------------------------
 
     def open_profile(self):
         ActionChains(self.driver).send_keys(Keys.ARROW_UP).perform()
@@ -252,67 +236,74 @@ class TinderBot():
         ActionChains(self.driver).send_keys(Keys.SPACE).perform()
 
     def like(self):
-        like_btn = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button')
+        like_btn = self.driver.find_element_by_xpath(
+            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[4]/button'
+        )
         like_btn.click()
 
     def dislike(self):
-        dislike_btn = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button')
+        dislike_btn = self.driver.find_element_by_xpath(
+            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/div[2]/button'
+        )
         dislike_btn.click()
 
     def match_popup(self):
-        m_btn = self.driver.find_element_by_xpath('//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[3]/a')
+        m_btn = self.driver.find_element_by_xpath(
+            '//*[@id="modal-manager-canvas"]/div/div/div[1]/div/div[3]/a')
         m_btn.click()
 
     def homescreen_popup(self):
-        hs_btn = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[2]/button[2]/span')
+        hs_btn = self.driver.find_element_by_xpath(
+            '//*[@id="modal-manager"]/div/div/div[2]/button[2]/span')
         hs_btn.click()
 
     def plus_popup(self):
-        plus_popup = self.driver.find_element_by_xpath('//*[@id="modal-manager"]/div/div/div[3]/button[2]')
+        plus_popup = self.driver.find_element_by_xpath(
+            '//*[@id="modal-manager"]/div/div/div[3]/button[2]')
         plus_popup.click()
-
-    #------------------------------------------------------------------
 
     def ausw(self):
         count, matches = 0, 0
         stopper = int(input('How many swipes do we stop at? '))
-        # message = int(input('Message people after? '))
+        message = int(input('Message people after? '))
         while count != stopper:
             sleep(1)
             try:
                 self.profile_scrape()
                 count += 1
-                print ('Swipes Counter: {} | Match Counter: {}'.format(count, matches))
+                print('Swipes Counter: {} | Match Counter: {}'.format(
+                    count, matches))
                 if message == 1:
                     if count == stopper:
                         self.auto_message()
             except Exception:
-                sleep (0.5)
+                sleep(0.5)
                 try:
                     self.homescreen_popup()
                 except Exception:
                     try:
                         self.match_popup()
                         matches += 1
-                        print ('---> Match Counter: {} <---'.format(matches))
+                        print('---> Match Counter: {} <---'.format(matches))
                     except Exception:
                         pass
 
-    #------------------------------------------------------------------
-
     def send_messages(self):
-        match_btn = self.driver.find_element_by_xpath('//*[@id="matchListNoMessages"]/div[1]/div[2]/a/div[1]')
+        match_btn = self.driver.find_element_by_xpath(
+            '//*[@id="matchListNoMessages"]/div[1]/div[2]/a/div[1]')
         match_btn.click()
 
         sleep(1)
 
-        # You can change the message to say whatever you want
-        message_in = self.driver.find_element_by_xpath('//*[@id="chat-text-area"]')
+        message_in = self.driver.find_element_by_xpath(
+            '//*[@id="chat-text-area"]')
         message_in.send_keys('Hey whats up?')
 
         sleep(1)
 
-        send_btn = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/form/button/span')
+        send_btn = self.driver.find_element_by_xpath(
+            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[3]/form/button/span'
+        )
         send_btn.click()
 
     def match_tab(self):
@@ -320,7 +311,9 @@ class TinderBot():
         mt_btn.click()
 
     def close_tab(self):
-        close_btn = self.driver.find_element_by_xpath('//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[1]/a/button')
+        close_btn = self.driver.find_element_by_xpath(
+            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div/div/div[1]/a/button'
+        )
         close_btn.click()
 
     # automatically messages people
@@ -332,7 +325,7 @@ class TinderBot():
                 self.match_tab()
                 self.send_messages()
                 sent += 1
-                print ('Messages sent: {}'.format(sent))
+                print('Messages sent: {}'.format(sent))
             except Exception:
                 pass
 
